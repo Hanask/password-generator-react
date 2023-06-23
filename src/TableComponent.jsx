@@ -17,18 +17,31 @@ const TableComponent = () => {
           <th className="px-6 py-3 bg-indigo-50 text-left text-sm text-indigo-500 uppercase w-10">
             Password
           </th>
+          <th className="px-6 py-3 bg-indigo-50 text-left text-sm text-indigo-500 uppercase w-10">
+            Created On
+          </th>
         </tr>
       </thead>
       <tbody className="bg-slate-50 divide-y divide-slate-400">
-        {
-            passwords && passwords.map((eachPassword) => (
-                <tr key={eachPassword.id}>
-                    <td className="px-6 py-4 whitespace-nowrap">{eachPassword.id}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{eachPassword.website}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{eachPassword.password}</td>
-                </tr>
-            ))
-        }
+        {passwords &&
+          passwords.map((eachPassword) => (
+            <tr key={eachPassword.id}>
+              <td className="px-6 py-4 whitespace-nowrap">{eachPassword.id}</td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {eachPassword.website}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {eachPassword.password}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {eachPassword.createdOn.split("T")[0]},{" "}
+                {new Date(eachPassword.createdOn).toLocaleTimeString("en-GB", {
+                  timeStyle: "long",
+                  hour12: false,
+                })}
+              </td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );
