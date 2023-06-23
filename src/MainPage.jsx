@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FiRefreshCw } from "react-icons/fi";
-import { AiOutlineCopy , AiOutlineSave} from "react-icons/ai";
-import toast, { Toaster } from 'react-hot-toast';
+import { AiOutlineCopy, AiOutlineSave } from "react-icons/ai";
+import toast, { Toaster } from "react-hot-toast";
 import { addPassword } from "./db";
+import { checkUrl } from "./utils";
 
 const MainPage = () => {
   const [password, setPassword] = useState("");
@@ -14,29 +15,27 @@ const MainPage = () => {
   };
 
   const copyPassword = () => {
-    if (password){
+    if (password) {
       navigator.clipboard.writeText(password);
       toast("Password copied!");
     }
-  }
+  };
 
   const savePassword = () => {
-    if(password && website){
-      console.log("Password:",password,"Website:",website);
-      addPassword(website,password);
+    if (password && website && checkUrl(website)) {
+      console.log("Password:", password, "Website:", website);
+      addPassword(website, password);
       toast("Password saved!");
+    } else {
+      toast("Not Valid.");
     }
-    else{
-      toast("Not Valid.")
-    }
-  }
+  };
 
   return (
     <div>
       <Toaster
         toastOptions={{
           duration: 1000,
-
         }}
       />
       <div>
@@ -58,7 +57,7 @@ const MainPage = () => {
           readOnly
           placeholder="Password:"
         />
-        <button onClick = { copyPassword } className=" ml-4 " title="copy-button">
+        <button onClick={copyPassword} className=" ml-4 " title="copy-button">
           <AiOutlineCopy size={32} className="text-indigo-700 mt-4" />
         </button>
       </div>
