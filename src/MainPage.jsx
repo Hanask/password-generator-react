@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FiRefreshCw } from "react-icons/fi";
 import { AiOutlineCopy , AiOutlineSave} from "react-icons/ai";
 import toast, { Toaster } from 'react-hot-toast';
+import { addPassword } from "./db";
 
 const MainPage = () => {
   const [password, setPassword] = useState("");
@@ -16,6 +17,17 @@ const MainPage = () => {
     if (password){
       navigator.clipboard.writeText(password);
       toast("Password copied!");
+    }
+  }
+
+  const savePassword = () => {
+    if(password && website){
+      console.log("Password:",password,"Website:",website);
+      addPassword(website,password);
+      toast("Password saved!");
+    }
+    else{
+      toast("Not Valid.")
     }
   }
 
@@ -57,7 +69,7 @@ const MainPage = () => {
           placeholder="Add Website URL:"
           onChange={(event) => setWebsite(event.target.value)}
         />
-        <button className=" ml-4 " title="save-button">
+        <button className=" ml-4 " title="save-button" onClick={savePassword}>
           <AiOutlineSave size={32} className="text-indigo-700 mt-4" />
         </button>
       </div>
