@@ -1,4 +1,5 @@
 import Dexie from "dexie";
+import { useLiveQuery } from "dexie-react-hooks";
 
 const db = new Dexie("savedPasswords");
 db.version(1).stores({
@@ -17,5 +18,7 @@ export const addPassword = async (website, password) => {
     console.error("Error while saving to the DB:", error);
   }
 };
+
+export const getPasswords = () => useLiveQuery(() => db.passwords.toArray());
 
 export default db;

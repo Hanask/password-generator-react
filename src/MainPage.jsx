@@ -4,6 +4,7 @@ import { AiOutlineCopy, AiOutlineSave } from "react-icons/ai";
 import toast, { Toaster } from "react-hot-toast";
 import { addPassword } from "./db";
 import { checkUrl } from "./utils";
+import TableComponent from "./TableComponent";
 
 const MainPage = () => {
   const [password, setPassword] = useState("");
@@ -23,7 +24,6 @@ const MainPage = () => {
 
   const savePassword = () => {
     if (password && website && checkUrl(website)) {
-      console.log("Password:", password, "Website:", website);
       addPassword(website, password);
       toast("Password saved!");
     } else {
@@ -72,6 +72,7 @@ const MainPage = () => {
           <AiOutlineSave size={32} className="text-indigo-700 mt-4" />
         </button>
       </div>
+      <TableComponent />
     </div>
   );
 };
